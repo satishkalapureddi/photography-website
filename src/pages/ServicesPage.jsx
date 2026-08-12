@@ -72,7 +72,7 @@ const services = [
 ];
 
 function enquire(service) {
-  const phone = "91XXXXXXXXXX";
+  const phone = "7671826829";
 
   const message =
     `Hi, I'm interested in ${service}. ` +

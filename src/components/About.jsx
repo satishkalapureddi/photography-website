@@ -334,7 +334,7 @@ function ContactForm() {
     const date = form.date.value;
     const message = form.message.value;
 
-    const phone = "91XXXXXXXXXX";
+    const phone = "7671826829";
 
     const whatsappMessage =
       `Hi, I'm ${name}.%0A%0A` +

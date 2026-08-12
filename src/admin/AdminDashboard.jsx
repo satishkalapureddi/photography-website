@@ -151,14 +151,11 @@ export default function AdminDashboard() {
 
   }, [contact]);
 
-  const logout = () => {
+ const handleLogout = () => {
+  localStorage.removeItem("visuals_admin");
 
-    localStorage.removeItem(
-      "visuals_admin"
-    );
-
-    navigate("/admin");
-  };
+  navigate("/admin");
+};
 
   const addService = () => {
 
@@ -344,12 +341,13 @@ export default function AdminDashboard() {
         <div className="admin-sidebar-bottom">
 
           <button
-            className="admin-nav logout"
-            onClick={logout}
-          >
+  className="admin-nav logout"
+  onClick={handleLogout}
+>
             <LogOut size={18} />
             Logout
           </button>
+
 
         </div>
 
@@ -497,7 +495,7 @@ export default function AdminDashboard() {
 
             </div>
 
-            <GalleryManager />
+            {/* <GalleryManager /> */}
 
           </section>
         )}

@@ -28,10 +28,7 @@ export default function AdminLogin() {
       username === "admin" &&
       password === "visuals20"
     ) {
-      localStorage.setItem(
-        "visuals_admin",
-        "true"
-      );
+      localStorage.setItem("visuals_admin", "true");
 
       navigate("/admin/dashboard");
     } else {

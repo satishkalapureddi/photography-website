@@ -15,11 +15,9 @@ import AdminDashboard from "./admin/AdminDashboard";
 
 function ProtectedAdmin() {
   const loggedIn =
-    localStorage.getItem(
-      "visuals_admin"
-    );
+    localStorage.getItem("visuals_admin");
 
-  return loggedIn ? (
+  return loggedIn === "true" ? (
     <AdminDashboard />
   ) : (
     <Navigate
@@ -28,6 +26,7 @@ function ProtectedAdmin() {
     />
   );
 }
+
 
 function App() {
 

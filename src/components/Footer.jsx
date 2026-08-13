@@ -7,7 +7,7 @@ export default function Footer() {
         <div className="footer-brand">
 
           <h2>
-            VISUALS<span>2.0</span>
+            REDDY<span> PHOTOGRAPHY</span>
           </h2>
 
           <p>
@@ -35,8 +35,8 @@ export default function Footer() {
             CONTACT
           </p>
 
-          <a href="tel:+91XXXXXXXXXX">
-            +91 XXXXX XXXXX
+          <a href="tel:9440662905">
+            +91 9440662905
           </a>
 
           <a href="mailto:hello@example.com">
@@ -54,7 +54,7 @@ export default function Footer() {
       <div className="footer-bottom">
 
         <span>
-          © 2026 VISUALS 2.0
+          © 2026 REDDY PHOTOGRAPHY
         </span>
 
         <span>

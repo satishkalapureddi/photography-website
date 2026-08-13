@@ -69,7 +69,7 @@ export default function AboutPage() {
               </p>
 
               <p>
-                At VISUALS 2.0, we combine a documentary
+                At REDDY PHOTOGRAPHY, we combine a documentary
                 approach with cinematic composition to
                 create photographs that are emotional,
                 honest and timeless.
@@ -151,7 +151,7 @@ export default function AboutPage() {
               </p>
 
               <div className="signature">
-                VISUALS 2.0
+                REDDY PHOTOGRAPHY
               </div>
 
             </motion.div>
@@ -167,17 +167,17 @@ export default function AboutPage() {
           <div className="container stats-grid">
 
             <div className="stat">
-              <strong>100+</strong>
+              <strong>1000+</strong>
               <span>Stories Captured</span>
             </div>
 
             <div className="stat">
-              <strong>5+</strong>
+              <strong>30+</strong>
               <span>Years Experience</span>
             </div>
 
             <div className="stat">
-              <strong>50+</strong>
+              <strong>1000+</strong>
               <span>Happy Couples</span>
             </div>
 
@@ -288,9 +288,9 @@ export default function AboutPage() {
 
               <div className="contact-details">
 
-                <a href="tel:+91XXXXXXXXXX">
+                <a href="tel:9440662905">
                   <span>PHONE</span>
-                  +91 XXXXX XXXXX
+                  +91 9440662905
                 </a>
 
                 <a href="mailto:hello@visuals20.com">
@@ -321,6 +321,8 @@ export default function AboutPage() {
     </>
   );
 }
+
+
 
 function ContactForm() {
 
@@ -374,7 +376,7 @@ function ContactForm() {
         <label>
           SERVICE
         </label>
-
+                
         <select
           name="service"
           defaultValue=""

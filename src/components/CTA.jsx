@@ -16,7 +16,7 @@ export default function CTA() {
           something <em>timeless.</em>
         </h2>
 
-        <a href="https://wa.me/91XXXXXXXXXX" className="primary-button">
+        <a href="https://wa.me/9440662905" className="primary-button">
           Start A Conversation
         </a>
 

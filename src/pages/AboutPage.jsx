@@ -9,7 +9,7 @@ export default function AboutPage() {
       <div style={{ paddingTop: "80px" }}>
         <About />
       </div>
-      <Footer />
+      
     </>
   );
 }

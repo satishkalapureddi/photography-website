@@ -18,7 +18,7 @@ export default function Navbar() {
         className="logo"
         onClick={closeMenu}
       >
-        VISUALS<span>2.0</span>
+        REDDY<span> PHOTOGRAPHY</span>
       </Link>
 
       {/* DESKTOP */}

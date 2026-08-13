@@ -21,12 +21,12 @@ export default function AdminLogin() {
       admin
 
       Password:
-      visuals20
+      reddy123
     */
 
     if (
       username === "admin" &&
-      password === "visuals20"
+      password === "reddy123"
     ) {
       localStorage.setItem("visuals_admin", "true");
 
@@ -48,7 +48,7 @@ export default function AdminLogin() {
       <div className="admin-login-box">
 
         <div className="admin-brand">
-          VISUALS<span>2.0</span>
+          REDDY<span>PHOTOGRAPHY</span>
         </div>
 
         <p className="admin-small">
@@ -123,7 +123,7 @@ export default function AdminLogin() {
 
         <p className="admin-demo-info">
           Demo login: <strong>admin</strong> /
-          <strong> visuals20</strong>
+          <strong> REDDY PHOTOGRAPHY</strong>
         </p>
 
       </div>

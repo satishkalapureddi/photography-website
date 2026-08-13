@@ -250,7 +250,7 @@ export default function AdminDashboard() {
         <div className="admin-sidebar-top">
 
           <div className="admin-logo">
-            VISUALS<span>2.0</span>
+            REDDY<span> PHOTOGRAPHY</span>
           </div>
 
           <button

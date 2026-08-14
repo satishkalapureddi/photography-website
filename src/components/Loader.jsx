@@ -8,7 +8,7 @@ export default function Loader() {
       animate={{ opacity: 0 }}
       transition={{
         duration: 0.8,
-        delay: 1.4,
+        delay: 1.6,
       }}
     >
       <motion.div
@@ -17,9 +17,11 @@ export default function Loader() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        <span>REDDY</span>
+        
+        
 
-        <strong>PHOTOGRAPHY</strong>
+        <strong>REDDY</strong>
+        <span>PHOTOGRAPHY</span>
 
         <div className="loader-line">
           <motion.div

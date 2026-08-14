@@ -9,6 +9,7 @@ import {
   Phone,
   LogOut,
   Plus,
+  Upload,
   Trash2,
   Save,
   Menu,
@@ -75,6 +76,18 @@ export default function AdminDashboard() {
         ? JSON.parse(saved)
         : [];
     });
+
+  const [galleryTitle, setGalleryTitle] =
+    useState("");
+
+  const [galleryCategory, setGalleryCategory] =
+    useState("WEDDINGS");
+
+  const [galleryUploading, setGalleryUploading] =
+    useState(false);
+
+  const [galleryMessage, setGalleryMessage] =
+    useState("");
 
   const [about, setAbout] =
     useState(() => {
@@ -201,20 +214,120 @@ export default function AdminDashboard() {
 
   const addGalleryImage = () => {
 
-    const url =
-      window.prompt(
-        "Paste image URL:"
+    const input =
+      document.getElementById(
+        "gallery-image-upload"
       );
 
-    if (!url) return;
+    if (input) {
+      input.click();
+    }
+  };
 
-    setGallery([
-      ...gallery,
-      {
+  const handleGalleryUpload = async (event) => {
+
+    const file = event.target.files?.[0];
+
+    event.target.value = "";
+
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+      setGalleryMessage(
+        "Please choose an image file."
+      );
+      return;
+    }
+
+    if (file.size > 10 * 1024 * 1024) {
+      setGalleryMessage(
+        "Please choose an image smaller than 10 MB."
+      );
+      return;
+    }
+
+    const cloudName =
+      import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+
+    const uploadPreset =
+      import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
+
+    if (!cloudName || !uploadPreset) {
+      setGalleryMessage(
+        "Cloudinary is not configured. Add VITE_CLOUDINARY_CLOUD_NAME and VITE_CLOUDINARY_UPLOAD_PRESET to Vercel Environment Variables."
+      );
+      return;
+    }
+
+    setGalleryUploading(true);
+    setGalleryMessage("Uploading photograph...");
+
+    try {
+
+      const formData = new FormData();
+
+      formData.append("file", file);
+      formData.append(
+        "upload_preset",
+        uploadPreset
+      );
+
+      const response = await fetch(
+        `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      const result = await response.json();
+
+      if (!response.ok || !result.secure_url) {
+        throw new Error(
+          result.error?.message ||
+          "Image upload failed."
+        );
+      }
+
+      const newImage = {
         id: Date.now(),
-        url,
-      },
-    ]);
+        title:
+          galleryTitle.trim() ||
+          file.name.replace(
+            /\\.[^/.]+$/,
+            ""
+          ),
+        category: galleryCategory,
+        url: result.secure_url,
+      };
+
+      setGallery([
+        ...gallery,
+        newImage,
+      ]);
+
+      setGalleryTitle("");
+      setGalleryCategory("WEDDINGS");
+      setGalleryMessage(
+        "Photograph uploaded successfully."
+      );
+
+      setTimeout(() => {
+        setGalleryMessage("");
+      }, 3000);
+
+    } catch (error) {
+
+      setGalleryMessage(
+        error.message ||
+        "Unable to upload photograph."
+      );
+
+    } finally {
+
+      setGalleryUploading(false);
+
+    }
   };
 
   const deleteGalleryImage = (id) => {
@@ -637,10 +750,112 @@ export default function AdminDashboard() {
                 onClick={
                   addGalleryImage
                 }
+                disabled={galleryUploading}
               >
-                <Plus size={18} />
-                Add Image
+                <Upload size={18} />
+                {galleryUploading
+                  ? "Uploading..."
+                  : "Upload Image"}
               </button>
+
+            </div>
+
+            <input
+              id="gallery-image-upload"
+              type="file"
+              accept="image/*"
+              onChange={
+                handleGalleryUpload
+              }
+              style={{
+                display: "none",
+              }}
+            />
+
+            <div className="admin-gallery-upload-card">
+
+              <div className="admin-gallery-upload-fields">
+
+                <div>
+                  <label>
+                    PHOTO TITLE
+                  </label>
+
+                  <input
+                    value={galleryTitle}
+                    onChange={(e) =>
+                      setGalleryTitle(
+                        e.target.value
+                      )
+                    }
+                    placeholder="Example: Golden Hour"
+                  />
+                </div>
+
+                <div>
+                  <label>
+                    CATEGORY
+                  </label>
+
+                  <select
+                    value={galleryCategory}
+                    onChange={(e) =>
+                      setGalleryCategory(
+                        e.target.value
+                      )
+                    }
+                  >
+                    <option>
+                      WEDDINGS
+                    </option>
+
+                    <option>
+                      PRE-WEDDING
+                    </option>
+
+                    <option>
+                      EVENTS
+                    </option>
+
+                    <option>
+                      PORTRAITS
+                    </option>
+                  </select>
+                </div>
+
+              </div>
+
+              <button
+                className="gallery-upload-button"
+                onClick={
+                  addGalleryImage
+                }
+                disabled={galleryUploading}
+              >
+                <Upload size={18} />
+
+                {galleryUploading
+                  ? "Uploading photograph..."
+                  : "Choose Photo & Upload"}
+              </button>
+
+              <p className="gallery-upload-help">
+                JPG, PNG or WEBP • Maximum 10 MB
+              </p>
+
+              {galleryMessage && (
+                <div
+                  className={
+                    galleryMessage.includes(
+                      "successfully"
+                    )
+                      ? "gallery-upload-message success"
+                      : "gallery-upload-message"
+                  }
+                >
+                  {galleryMessage}
+                </div>
+              )}
 
             </div>
 
@@ -655,17 +870,9 @@ export default function AdminDashboard() {
                 </h3>
 
                 <p>
-                  Add an image URL to
-                  build your gallery.
+                  Choose a photograph above
+                  to add it to your gallery.
                 </p>
-
-                <button
-                  onClick={
-                    addGalleryImage
-                  }
-                >
-                  Add First Image
-                </button>
 
               </div>
 
@@ -683,8 +890,23 @@ export default function AdminDashboard() {
 
                       <img
                         src={image.url}
-                        alt=""
+                        alt={
+                          image.title ||
+                          "Gallery photograph"
+                        }
                       />
+
+                      <div className="admin-gallery-card-info">
+                        <span>
+                          {image.category ||
+                            "PHOTOGRAPHY"}
+                        </span>
+
+                        <strong>
+                          {image.title ||
+                            "Untitled"}
+                        </strong>
+                      </div>
 
                       <button
                         onClick={() =>
@@ -692,6 +914,7 @@ export default function AdminDashboard() {
                             image.id
                           )
                         }
+                        title="Delete image"
                       >
                         <Trash2
                           size={18}
@@ -699,7 +922,6 @@ export default function AdminDashboard() {
                       </button>
 
                     </div>
-
                   )
                 )}
 
